@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lift Veno | Shared Journey Platform</title>
+    <meta name="description" content="Going somewhere? Find someone already going your way. Lift Veno is exploring a route-based shared journey platform.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Upgraded to Anek Malayalam for a modern, trendy, playful look -->
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: '#202124',
+                        orange: '#FF5A1F',
+                        offwhite: '#F7F5F2',
+                        white: '#FFFFFF',
+                        secondary: '#6B6B6B',
+                        soft: '#E8E4DF',
+                        success: '#2F7D57',
+                        error: '#C83A3A'
+                    },
+                    fontFamily: {
+                        heading: ['Manrope', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        ml: ['"Anek Malayalam"', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'brutal': '4px 4px 0px 0px #202124',
+                        'brutal-orange': '4px 4px 0px 0px #FF5A1F',
+                        'brutal-sm': '2px 2px 0px 0px #202124',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F7F5F2;
+            color: #202124;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Manrope', sans-serif;
+        }
+        .ml-text {
+            font-family: 'Anek Malayalam', sans-serif;
+            line-height: 1.4;
+        }
+        
+        /* Loading Splash Animation */
+        #splash-screen {
+            transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+        }
+        .splash-logo {
+            animation: bounce-pulse 2s infinite ease-in-out;
+        }
+        @keyframes bounce-pulse {
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.05) translateY(-10px); }
+        }
+
+        /* Subtle animations */
+        @media (prefers-reduced-motion: no-preference) {
+            .fade-up {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            }
+            .fade-up.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            .dash-anim {
+                stroke-dasharray: 12;
+                animation: dash 10s linear infinite;
+            }
+            @keyframes dash {
+                to { stroke-dashoffset: -1000; }
+            }
+            .spin-slow {
+                animation: spin 10s linear infinite;
+            }
+        }
+        
+        /* Modern UI Badge */
+        .trendy-badge {
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.05) 10px, rgba(0,0,0,0.05) 20px);
+        }
+    </style>
+</head>
+<body class="bg-offwhite text-charcoal overflow-x-hidden">
+
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="fixed inset-0 z-[100] bg-charcoal flex flex-col items-center justify-center">
+        <img src="liftveno.png" alt="Lift Veno" class="w-32 h-32 md:w-48 md:h-48 object-contain splash-logo mb-6">
+        <div class="text-white/50 font-heading tracking-widest text-sm uppercase flex items-center gap-2">
+            Loading <svg class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-width="2" stroke-dasharray="16 16"></circle></svg>
+        </div>
+    </div>
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 bg-offwhite/90 backdrop-blur-md border-b-2 border-charcoal">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 text-2xl font-heading font-extrabold tracking-tight">
+                <img src="liftveno.png" alt="Lift Veno" class="w-10 h-10 object-contain">
+                Lift Veno
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-bold uppercase tracking-wider">
+                <a href="#how-it-works" class="hover:text-orange transition-colors ml-text text-base">എങ്ങനെ?</a>
+                <a href="#safety" class="hover:text-orange transition-colors ml-text text-base">സേഫ്റ്റി</a>
+                <a href="#why-lift-veno" class="hover:text-orange transition-colors">Why LV</a>
+            </nav>
+
+            <!-- CTA & Mobile Toggle -->
+            <div class="flex items-center gap-4">
+                <a href="survey.html" class="hidden md:inline-flex items-center justify-center bg-orange text-white px-5 py-2.5 rounded-sm font-bold text-sm border-2 border-charcoal shadow-brutal hover:translate-y-[2px] hover:shadow-brutal-sm transition-all">
+                    Take Survey &rarr;
+                </a>
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-charcoal border-2 border-charcoal rounded-sm shadow-brutal-sm bg-white" aria-label="Toggle Menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b-2 border-charcoal px-6 py-6 space-y-4 absolute w-full shadow-brutal">
+            <a href="#how-it-works" class="block font-bold text-xl mobile-link ml-text">എങ്ങനെ? (How it works)</a>
+            <a href="#why-lift-veno" class="block font-bold text-xl mobile-link uppercase">Why Lift Veno</a>
+            <a href="#safety" class="block font-bold text-xl mobile-link ml-text">സേഫ്റ്റി (Safety)</a>
+            <a href="survey.html" class="block bg-orange text-white px-5 py-3 text-center rounded-sm font-bold mt-6 border-2 border-charcoal shadow-brutal mobile-link">Take the Travel Survey &rarr;</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-20 md:pt-32 md:pb-32 px-6 max-w-6xl mx-auto relative z-10">
+        <!-- Floating Trendy Element -->
+        <div class="absolute top-10 right-10 w-24 h-24 hidden md:flex items-center justify-center spin-slow opacity-80 pointer-events-none">
+            <svg viewBox="0 0 100 100" fill="none" class="w-full h-full text-orange"><path d="M50 0L56 44L100 50L56 56L50 100L44 56L0 50L44 44L50 0Z" fill="currentColor"/></svg>
+            <span class="absolute text-[10px] font-bold text-charcoal uppercase rotate-12 ml-text bg-white px-1 border-2 border-charcoal">Vibe Check</span>
+        </div>
+        
+        <!-- Kerala Coconut Tree Graphic (Left) -->
+        <div class="absolute top-20 -left-10 w-32 h-32 hidden md:block opacity-40 pointer-events-none transform -rotate-12">
+            <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="text-charcoal drop-shadow-[2px_2px_0_#FF5A1F]">
+                <!-- Trunk -->
+                <path d="M50 90 Q55 60 48 30" />
+                <path d="M45 90 Q50 60 43 30" />
+                <path d="M42 80 h10" /><path d="M43 70 h10" /><path d="M44 60 h9" /><path d="M45 50 h8" /><path d="M46 40 h7" />
+                <!-- Leaves -->
+                <path d="M45 30 Q25 35 10 20" />
+                <path d="M45 30 Q25 15 35 0" />
+                <path d="M45 30 Q55 10 70 5" />
+                <path d="M45 30 Q70 25 90 30" />
+                <path d="M45 30 Q70 50 85 60" />
+                <path d="M45 30 Q20 50 5 60" />
+                <!-- Coconuts -->
+                <circle cx="42" cy="35" r="4" fill="#FF5A1F" stroke="currentColor" stroke-width="3"/>
+                <circle cx="52" cy="33" r="4" fill="#FF5A1F" stroke="currentColor" stroke-width="3"/>
+            </svg>
+        </div>
+
+        <div class="max-w-3xl fade-up relative z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-charcoal border-2 border-charcoal rounded-full text-sm font-bold text-white mb-6 shadow-brutal-orange transform -rotate-2">
+                <span class="animate-pulse w-2 h-2 rounded-full bg-orange"></span>
+                Research Phase
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-heading font-extrabold leading-[1.1] tracking-tight mb-4">
+                <span class="text-charcoal block mb-3">Engotta ee pokku?</span>
+                <!-- Modern conversational Malayalam -->
+                <span class="text-orange text-4xl md:text-6xl ml-text font-extrabold block mb-4 border-b-4 border-charcoal inline-block pb-2">എങ്ങോട്ടാ ഈ പോക്ക്?</span>
+            </h1>
+            <h2 class="text-2xl md:text-3xl font-heading font-bold text-charcoal/90 mb-8 mt-4">
+                Find someone already going your <span class="text-orange relative inline-block trendy-badge px-2">way.</span>
+            </h2>
+            <p class="text-lg md:text-xl text-charcoal font-medium leading-relaxed mb-10 max-w-2xl ml-text bg-white p-4 border-2 border-charcoal rounded-sm shadow-brutal-sm">
+                നിങ്ങൾ പോകുന്ന അതേ വഴിയിലൂടെ പോകുന്നവരെ കണ്ടെത്താം. Lift Veno is exploring a new way to share everyday journeys. Match with people heading your way, share the ride, and make empty seats useful.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-5">
+                <a href="survey.html" class="inline-flex items-center justify-center bg-orange text-white px-8 py-4 rounded-sm font-bold text-xl border-2 border-charcoal shadow-brutal hover:translate-y-[2px] hover:shadow-brutal-sm transition-all">
+                    Travel Survey &rarr;
+                </a>
+                <a href="#problem" class="inline-flex items-center justify-center bg-white border-2 border-charcoal text-charcoal px-8 py-4 rounded-sm font-bold text-xl shadow-brutal hover:bg-offwhite hover:translate-y-[2px] hover:shadow-brutal-sm transition-all">
+                    More Info &darr;
+                </a>
+            </div>
+        </div>
+        
+        <!-- Custom Abstract UI Graphic - Neo-Brutalist -->
+        <div class="mt-24 border-2 border-charcoal rounded-sm bg-white max-w-4xl fade-up shadow-brutal overflow-hidden relative">
+            <div class="p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiMyMDIxMjQiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+')]">
+                
+                <!-- Existing Journey Custom UI -->
+                <div class="flex-1 w-full bg-white border-2 border-charcoal p-6 rounded-sm shadow-brutal-sm relative transform md:-rotate-2 hover:rotate-0 transition-transform bg-yellow-50">
+                    <div class="absolute -top-4 -left-2 bg-charcoal text-white text-xs font-bold px-3 py-1 uppercase tracking-widest border-2 border-charcoal rotate-[-5deg]">Going</div>
+                    <div class="flex justify-between items-center mb-4 mt-3">
+                        <div class="font-heading font-extrabold text-xl">Palakkad</div>
+                        <div class="text-charcoal font-black text-2xl px-2">&rarr;</div>
+                        <div class="font-heading font-extrabold text-xl text-right">Coimbatore</div>
+                    </div>
+                    <div class="flex items-center justify-between text-sm font-bold border-t-2 border-dashed border-charcoal pt-4 mt-4">
+                        <div class="bg-white border-2 border-charcoal px-2 py-1 rounded-sm">05:30 PM</div>
+                        <div class="bg-orange text-white border-2 border-charcoal px-2 py-1 rounded-sm flex items-center gap-1">
+                            2 Seats
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-center">
+                    <div class="w-12 h-12 rounded-full border-2 border-charcoal bg-white shadow-brutal-sm flex items-center justify-center text-charcoal font-black text-2xl z-10 rotate-12">
+                        +
+                    </div>
+                </div>
+
+                <!-- Traveller Custom UI -->
+                <div class="flex-1 w-full bg-white border-2 border-charcoal p-6 rounded-sm shadow-brutal-sm relative transform md:rotate-2 hover:rotate-0 transition-transform bg-orange/10">
+                    <div class="absolute -top-4 -right-2 bg-orange text-white text-xs font-bold px-3 py-1 uppercase tracking-widest border-2 border-charcoal rotate-[5deg] ml-text">കൂടെ പോരാം</div>
+                    <div class="flex justify-between items-center mb-4 mt-3">
+                        <div class="font-heading font-extrabold text-xl">Palakkad</div>
+                        <div class="text-orange font-black text-2xl px-2">&rarr;</div>
+                        <div class="font-heading font-extrabold text-xl text-right">Coimbatore</div>
+                    </div>
+                    <div class="flex items-center justify-between text-sm font-bold border-t-2 border-dashed border-charcoal pt-4 mt-4">
+                        <div class="bg-white border-2 border-charcoal px-2 py-1 rounded-sm">~ 06:00 PM</div>
+                        <div class="bg-charcoal text-white border-2 border-charcoal px-2 py-1 rounded-sm flex items-center gap-1 ml-text">
+                            യാത്രക്കാരൻ
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="py-24 bg-charcoal text-white border-y-4 border-charcoal overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="max-w-4xl mb-16 fade-up">
+                <div class="inline-block bg-orange text-charcoal font-extrabold text-xl px-4 py-2 border-2 border-white transform -rotate-2 mb-6 ml-text">
+                    വണ്ടീൽ ഫുൾ സീറ്റ് ഗാലി, പക്ഷെ ആളില്ല!
+                </div>
+                <h3 class="text-4xl md:text-6xl font-heading font-black mb-6 leading-tight">Millions of journeys.<br><span class="text-orange">Millions of empty seats.</span></h3>
+                <p class="text-xl text-white/80 leading-relaxed ml-text max-w-2xl font-medium">
+                    എത്രയോ വണ്ടികളാണ് ദിവസവും ഒഴിഞ്ഞ സീറ്റുകളുമായി പോകുന്നത്. അതേ സമയം, അതേ വഴി പോകാൻ വണ്ടി കിട്ടാതെ കഷ്ടപ്പെടുന്നവരും നിരവധിയാണ്. 
+                </p>
+            </div>
+
+            <!-- Custom Illustration for Problem (Playful Neo-brutalist) -->
+            <div class="relative max-w-4xl mx-auto fade-up mt-20 mb-12">
+                <!-- Route Line -->
+                <svg class="absolute top-1/2 left-0 w-full h-10 -translate-y-1/2 hidden md:block" preserveAspectRatio="none">
+                    <line x1="0" y1="20" x2="100%" y2="20" stroke="#FF5A1F" stroke-width="4" stroke-dasharray="12 12" class="dash-anim"/>
+                </svg>
+
+                <div class="grid md:grid-cols-2 gap-12 md:gap-24 relative z-10">
+                    <!-- Left: Vehicle -->
+                    <div class="bg-white text-charcoal p-8 border-4 border-charcoal rounded-sm shadow-[8px_8px_0px_#FF5A1F] flex flex-col items-center text-center transform hover:-translate-y-2 transition-transform">
+                        <div class="bg-offwhite p-4 border-2 border-charcoal rounded-full mb-6 relative">
+                            <span class="absolute -top-2 -right-2 bg-charcoal text-white text-xs font-bold px-2 py-1 rounded-sm border-2 border-white rotate-12">DRIVER</span>
+                            <svg class="w-12 h-12 text-charcoal" viewBox="0 0 24 24" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+                        </div>
+                        <h5 class="font-heading font-black text-2xl mb-2">Going somewhere</h5>
+                        <p class="font-bold text-secondary uppercase tracking-wider mb-6 bg-soft px-3 py-1 border-2 border-charcoal inline-block rounded-sm">Palakkad &rarr; Coimbatore</p>
+                        
+                        <div class="flex gap-3">
+                            <div class="bg-orange text-white border-2 border-charcoal font-bold px-4 py-2 rounded-sm shadow-brutal-sm ml-text">ഒഴിഞ്ഞ സീറ്റുകൾ</div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Person -->
+                    <div class="bg-white text-charcoal p-8 border-4 border-charcoal rounded-sm shadow-[8px_8px_0px_#FF5A1F] flex flex-col items-center text-center transform hover:-translate-y-2 transition-transform md:translate-y-8">
+                        <div class="bg-orange/20 p-4 border-2 border-charcoal rounded-full mb-6 relative">
+                            <span class="absolute -top-2 -left-2 bg-orange text-white text-xs font-bold px-2 py-1 rounded-sm border-2 border-charcoal -rotate-12">SEEKING</span>
+                            <svg class="w-12 h-12 text-orange" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        </div>
+                        <h5 class="font-heading font-black text-2xl mb-2">Needs to travel</h5>
+                        <p class="font-bold text-orange uppercase tracking-wider mb-6 bg-orange/10 px-3 py-1 border-2 border-orange inline-block rounded-sm">Palakkad &rarr; Coimbatore</p>
+                        
+                        <div class="flex gap-3">
+                            <div class="bg-charcoal text-white border-2 border-charcoal font-bold px-4 py-2 rounded-sm shadow-brutal-sm ml-text">യാത്രക്കാരൻ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-20 text-center fade-up relative">
+                <div class="absolute left-1/2 -top-12 -translate-x-1/2 text-5xl font-black text-orange">?</div>
+                <div class="bg-white text-charcoal border-4 border-orange p-6 inline-block rounded-sm shadow-[8px_8px_0px_#FF5A1F] transform rotate-1">
+                    <p class="text-2xl font-heading font-black mb-2">Why can't they connect?</p>
+                    <p class="ml-text text-xl font-bold">ഇവർക്ക് എങ്ങനെ ഒരുമിച്ച് യാത്ര ചെയ്യാം?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduce Lift Veno -->
+    <section id="why-lift-veno" class="py-24 bg-orange text-white relative border-b-4 border-charcoal">
+        <div class="max-w-6xl mx-auto px-6 text-center fade-up relative z-10">
+            <h2 class="inline-block bg-white text-charcoal text-2xl font-bold px-4 py-2 border-4 border-charcoal shadow-brutal-sm mb-8 transform -rotate-3 ml-text">
+                ഒരു ലിഫ്റ്റ് അടിച്ചാലോ?
+            </h2>
+            <p class="text-4xl md:text-7xl font-heading font-black mb-8 leading-tight">
+                Don't request a journey.<br>
+                <span class="text-charcoal underline decoration-white decoration-8 underline-offset-8">Discover one already happening.</span>
+            </p>
+            <p class="text-xl font-bold max-w-3xl mx-auto mb-16 ml-text bg-charcoal p-6 border-4 border-white shadow-[8px_8px_0px_white] rounded-sm text-left md:text-center leading-relaxed">
+                വണ്ടി ബുക്ക് ചെയ്യുന്നതിന് പകരം, നിങ്ങള്‍ പോകുന്ന അതേ വഴി പോകുന്നവരെ കണ്ടെത്താം. Lift Veno explores whether people can discover compatible journeys that already exist.
+            </p>
+        </div>
+    </section>
+
+    <!-- How it Works (Modern/Playful) -->
+    <section id="how-it-works" class="py-24 max-w-6xl mx-auto px-6 border-b-2 border-charcoal">
+        <h2 class="text-5xl font-heading font-black mb-16 text-center">
+            How it works 
+            <span class="block mt-4 text-orange ml-text font-bold text-3xl transform rotate-2">വളരെ സിമ്പിൾ ആണ്!</span>
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8 fade-up">
+            <!-- Step 1 -->
+            <div class="bg-white border-4 border-charcoal p-8 rounded-sm shadow-brutal relative hover:-translate-y-2 transition-transform">
+                <div class="absolute -top-6 -left-4 w-12 h-12 bg-orange text-white font-black text-2xl border-2 border-charcoal flex items-center justify-center rounded-full shadow-brutal-sm">1</div>
+                <h3 class="text-2xl font-heading font-black mb-2 mt-4">Publish your journey</h3>
+                <h4 class="text-xl text-orange ml-text font-bold mb-4">റൂട്ട് സെറ്റ് ആക്കാം</h4>
+                <p class="text-charcoal font-medium">Tell people where you're already going. Share your route and time easily.</p>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="bg-offwhite border-4 border-charcoal p-8 rounded-sm shadow-brutal relative hover:-translate-y-2 transition-transform md:translate-y-8">
+                <div class="absolute -top-6 -left-4 w-12 h-12 bg-charcoal text-white font-black text-2xl border-2 border-charcoal flex items-center justify-center rounded-full shadow-brutal-sm">2</div>
+                <h3 class="text-2xl font-heading font-black mb-2 mt-4">Find compatible journeys</h3>
+                <h4 class="text-xl text-orange ml-text font-bold mb-4">വൈബ് ഉള്ളവരെ കണ്ടുപിടിക്കാം</h4>
+                <p class="text-charcoal font-medium">Discover people travelling in the same direction at compatible times.</p>
+            </div>
+            
+            <!-- Step 3 -->
+            <div class="bg-orange/10 border-4 border-charcoal p-8 rounded-sm shadow-brutal relative hover:-translate-y-2 transition-transform md:translate-y-16">
+                <div class="absolute -top-6 -left-4 w-12 h-12 bg-white text-orange font-black text-2xl border-2 border-charcoal flex items-center justify-center rounded-full shadow-brutal-sm">3</div>
+                <h3 class="text-2xl font-heading font-black mb-2 mt-4">Travel together</h3>
+                <h4 class="text-xl text-orange ml-text font-bold mb-4">പൊളിക്കാം, ഒരുമിച്ച് പോകാം</h4>
+                <p class="text-charcoal font-medium">Connect, coordinate, and share the journey securely.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Supported Transport Modes (Custom thick icons) -->
+    <section class="py-24 bg-white border-b-2 border-charcoal px-6 overflow-hidden relative">
+        <!-- Kerala Winding Road Background -->
+        <div class="absolute inset-0 z-0 opacity-10 pointer-events-none flex justify-center items-end">
+            <svg viewBox="0 0 1440 300" class="w-full h-auto min-w-[1000px]" fill="none" stroke="currentColor" stroke-width="4">
+                <path d="M0 250 C 300 250, 400 150, 720 150 C 1040 150, 1140 250, 1440 250" />
+                <path d="M0 280 C 300 280, 400 180, 720 180 C 1040 180, 1140 280, 1440 280" />
+                <!-- Center dashed line -->
+                <path d="M0 265 C 300 265, 400 165, 720 165 C 1040 165, 1140 265, 1440 265" stroke-dasharray="20 20" />
+                <!-- Distant Coconut Trees -->
+                <g transform="translate(200, 150) scale(0.5)">
+                    <path d="M50 90 Q55 60 48 30" /><path d="M45 90 Q50 60 43 30" /><path d="M45 30 Q25 35 10 20" /><path d="M45 30 Q25 15 35 0" /><path d="M45 30 Q55 10 70 5" /><path d="M45 30 Q70 25 90 30" /><path d="M45 30 Q70 50 85 60" /><path d="M45 30 Q20 50 5 60" />
+                </g>
+                <g transform="translate(1200, 180) scale(0.6)">
+                    <path d="M50 90 Q55 60 48 30" /><path d="M45 90 Q50 60 43 30" /><path d="M45 30 Q25 35 10 20" /><path d="M45 30 Q25 15 35 0" /><path d="M45 30 Q55 10 70 5" /><path d="M45 30 Q70 25 90 30" /><path d="M45 30 Q70 50 85 60" /><path d="M45 30 Q20 50 5 60" />
+                </g>
+                <g transform="translate(800, 100) scale(0.4)">
+                    <path d="M50 90 Q55 60 48 30" /><path d="M45 90 Q50 60 43 30" /><path d="M45 30 Q25 35 10 20" /><path d="M45 30 Q25 15 35 0" /><path d="M45 30 Q55 10 70 5" /><path d="M45 30 Q70 25 90 30" /><path d="M45 30 Q70 50 85 60" /><path d="M45 30 Q20 50 5 60" />
+                </g>
+            </svg>
+        </div>
+        
+        <div class="max-w-5xl mx-auto fade-up relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-heading font-black mb-4">Different ways to travel.</h2>
+                <h3 class="text-2xl font-bold text-orange ml-text bg-orange/10 border-2 border-orange inline-block px-4 py-2 transform rotate-2">നമ്മുടെ നാട്ടിലെ യാത്രകൾ</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <!-- Car -->
+                <div class="flex flex-col items-center p-8 bg-white border-4 border-charcoal rounded-sm shadow-brutal group hover:bg-orange hover:text-white transition-colors">
+                    <!-- Thick Custom Car SVG -->
+                    <svg class="w-20 h-20 mb-6 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
+                        <path d="M4 16h16M3 13v-3l3-3h12l3 3v3m-18 0l-1-3M21 13l1-3M7 10h10" />
+                        <circle cx="7" cy="16" r="3" fill="currentColor"/>
+                        <circle cx="17" cy="16" r="3" fill="currentColor"/>
+                    </svg>
+                    <span class="font-heading font-black text-2xl mb-1 uppercase tracking-widest">Car</span>
+                    <span class="ml-text font-bold text-xl opacity-80">കാർ</span>
+                </div>
+                
+                <!-- Bike -->
+                <div class="flex flex-col items-center p-8 bg-white border-4 border-charcoal rounded-sm shadow-brutal group hover:bg-charcoal hover:text-white transition-colors">
+                    <svg class="w-20 h-20 mb-6 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
+                        <circle cx="6" cy="16" r="4" fill="currentColor" fill-opacity="0.2"/>
+                        <circle cx="18" cy="16" r="4" fill="currentColor" fill-opacity="0.2"/>
+                        <path d="M6 16l3-7 5-1 3 7M11 6h4l2 4" />
+                        <path d="M12 8v5" />
+                    </svg>
+                    <span class="font-heading font-black text-2xl mb-1 uppercase tracking-widest">Bike</span>
+                    <span class="ml-text font-bold text-xl opacity-80">ബൈക്ക്</span>
+                </div>
+                
+                <!-- Scooter -->
+                <div class="flex flex-col items-center p-8 bg-white border-4 border-charcoal rounded-sm shadow-brutal group hover:bg-orange hover:text-white transition-colors">
+                    <svg class="w-20 h-20 mb-6 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
+                        <circle cx="6" cy="17" r="3" fill="currentColor" fill-opacity="0.2"/>
+                        <circle cx="18" cy="17" r="3" fill="currentColor" fill-opacity="0.2"/>
+                        <path d="M6 17h12M9 17V7h3M15 5l-3 4" />
+                        <path d="M12 11h3" />
+                    </svg>
+                    <span class="font-heading font-black text-2xl mb-1 uppercase tracking-widest">Scooter</span>
+                    <span class="ml-text font-bold text-xl opacity-80">സ്കൂട്ടർ</span>
+                </div>
+            </div>
+
+            <div class="bg-yellow-100 p-6 border-4 border-charcoal shadow-brutal text-charcoal font-bold flex flex-col md:flex-row items-center gap-6">
+                <div class="text-4xl">⚠️</div>
+                <p class="leading-relaxed">
+                    We're researching which transport modes can be supported safely and in accordance with applicable regulations. Private two-wheeler passenger services are subject to specific legal frameworks which we are currently evaluating.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Safety Section -->
+    <section id="safety" class="py-24 bg-charcoal text-white border-b-2 border-charcoal px-6">
+        <div class="max-w-6xl mx-auto fade-up">
+            <h2 class="text-5xl font-heading font-black mb-4">Built around trust.</h2>
+            <h3 class="text-3xl text-orange ml-text font-bold mb-12">വിശ്വസിച്ചു യാത്ര ചെയ്യാം</h3>
+            
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <div class="bg-white/10 p-6 border-2 border-white/20 rounded-sm hover:bg-orange hover:border-orange transition-colors group">
+                    <h4 class="font-bold text-xl mb-2">Identity verification</h4>
+                    <p class="text-lg ml-text opacity-80 group-hover:opacity-100 font-medium">ഐഡൻ്റിറ്റി പരിശോധന</p>
+                </div>
+                <div class="bg-white/10 p-6 border-2 border-white/20 rounded-sm hover:bg-orange hover:border-orange transition-colors group">
+                    <h4 class="font-bold text-xl mb-2">Driver & vehicle info</h4>
+                    <p class="text-lg ml-text opacity-80 group-hover:opacity-100 font-medium">വാഹന വിവരങ്ങൾ</p>
+                </div>
+                <div class="bg-white/10 p-6 border-2 border-white/20 rounded-sm hover:bg-orange hover:border-orange transition-colors group">
+                    <h4 class="font-bold text-xl mb-2">User reputation</h4>
+                    <p class="text-lg ml-text opacity-80 group-hover:opacity-100 font-medium">യൂസർ റേറ്റിംഗ്</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder / Creator Section -->
+    <section class="py-24 bg-white border-b-4 border-charcoal relative overflow-hidden">
+        <!-- Abstract Background -->
+        <div class="absolute -right-20 -top-20 w-64 h-64 bg-yellow-100 rounded-full border-4 border-charcoal"></div>
+        <div class="absolute -left-10 bottom-10 w-32 h-32 bg-orange/20 rounded-full border-4 border-charcoal"></div>
+
+        <div class="max-w-6xl mx-auto px-6 fade-up relative z-10">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                
+                <!-- Founder Profile Card (Neo-Brutalist ID) -->
+                <div class="w-full md:w-1/3">
+                    <div class="bg-offwhite border-4 border-charcoal p-6 rounded-sm shadow-brutal transform -rotate-2 hover:rotate-0 transition-transform">
+                        <div class="border-b-4 border-charcoal pb-4 mb-4 flex justify-between items-start">
+                            <div>
+                                <h3 class="font-heading font-black text-3xl">Chriz</h3>
+                                <p class="text-orange font-bold uppercase tracking-wider text-sm">Founder & Builder</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-full border-2 border-charcoal bg-white flex items-center justify-center font-black text-xl overflow-hidden">
+                                <img src="https://github.com/chriz-3656.png" alt="Chriz" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="space-y-3 font-bold text-charcoal/80 text-sm mb-6">
+                            <p class="flex items-center gap-2"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> Cyber Forensics & Security</p>
+                            <p class="flex items-center gap-2"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> India</p>
+                        </div>
+                        <div class="flex flex-col gap-3">
+                            <a href="https://github.com/chriz-3656" target="_blank" class="bg-charcoal text-white font-bold py-2 px-4 rounded-sm border-2 border-charcoal text-center hover:bg-orange transition-colors">GitHub Profile &nearr;</a>
+                            <a href="https://chriz-3656.github.io/" target="_blank" class="bg-white text-charcoal font-bold py-2 px-4 rounded-sm border-2 border-charcoal text-center hover:bg-offwhite transition-colors">Portfolio &nearr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bio Content -->
+                <div class="w-full md:w-2/3 space-y-6">
+                    <h2 class="text-4xl md:text-5xl font-heading font-black mb-2">The Builder Behind Lift Veno</h2>
+                    <h3 class="text-2xl text-orange ml-text font-bold mb-6">ആരാണ് ഇതിനു പിന്നിൽ?</h3>
+                    
+                    <div class="text-lg font-medium text-charcoal/90 leading-relaxed space-y-4">
+                        <p>Lift Veno is an independent project created and developed by <span class="bg-orange/20 px-1 font-bold border-b-2 border-orange">Chriz</span>. I’m a Cyber Forensics and Cybersecurity student from India with a strong interest in building practical technology, web applications, automation systems, mobile-focused products, and creative digital projects.</p>
+                        
+                        <p class="bg-offwhite p-4 border-l-4 border-charcoal text-charcoal font-bold shadow-brutal-sm">
+                            "My approach is simple: learn by building, test ideas practically, and turn concepts into real working systems."
+                        </p>
+
+                        <p>Over time, I’ve built projects across web and mobile applications, progressive web apps, automation platforms, developer tools, AI-powered systems, and the SkyRealm Community.</p>
+                        
+                        <p>Lift Veno is a new challenge in a different space: shared mobility. The project began with a simple question: <strong class="bg-yellow-100 px-1">How many people travel every day with an empty seat while someone else is trying to reach the same destination?</strong></p>
+                        
+                        <p>Before building the full platform, I’m researching the problem, talking to real people, collecting feedback, and testing whether Lift Veno can become a useful real-world solution.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-24 bg-orange text-charcoal border-b-2 border-charcoal relative">
+        <div class="max-w-xl mx-auto px-6 fade-up">
+            <h2 class="text-4xl md:text-5xl font-heading font-black mb-4 text-center text-white drop-shadow-[4px_4px_0_#202124]">Get In Touch</h2>
+            
+            <div class="flex justify-center mb-8">
+                <h3 class="text-2xl font-bold bg-white text-charcoal px-6 py-3 border-4 border-charcoal shadow-brutal ml-text transform rotate-2">
+                    സംസാരിക്കാം! (Let's Talk!)
+                </h3>
+            </div>
+            
+            <form id="contact-form" class="space-y-6 bg-white p-8 md:p-10 border-4 border-charcoal rounded-sm shadow-brutal relative z-10">
+                <div>
+                    <label class="block text-lg font-black mb-2 uppercase">Name <span class="ml-text text-orange text-base">(പേര്)</span></label>
+                    <input type="text" name="user_name" required class="w-full border-4 border-charcoal bg-offwhite p-4 rounded-sm focus:outline-none focus:bg-white font-bold text-lg" placeholder="Your Name">
+                </div>
+                <div>
+                    <label class="block text-lg font-black mb-2 uppercase">Email address <span class="ml-text text-orange text-base">(ഇമെയിൽ)</span></label>
+                    <input type="email" name="user_email" required class="w-full border-4 border-charcoal bg-offwhite p-4 rounded-sm focus:outline-none focus:bg-white font-bold text-lg" placeholder="you@example.com">
+                </div>
+                <div>
+                    <label class="block text-lg font-black mb-2 uppercase">Message <span class="ml-text text-orange text-base">(മെസ്സേജ്)</span></label>
+                    <textarea name="message" rows="4" required class="w-full border-4 border-charcoal bg-offwhite p-4 rounded-sm focus:outline-none focus:bg-white font-bold text-lg" placeholder="Write your thoughts or feedback here..."></textarea>
+                </div>
+                
+                <!-- Google reCAPTCHA -->
+                <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY"></div>
+                
+                <div id="form-error" class="hidden text-white bg-error font-bold p-4 border-4 border-charcoal shadow-brutal-sm">Something went wrong. Please try again.</div>
+                <div id="form-success" class="hidden text-charcoal bg-green-400 font-bold p-4 border-4 border-charcoal shadow-brutal-sm text-lg text-center ml-text">
+                    Message sent successfully! (മെസ്സേജ് അയച്ചു!)
+                </div>
+
+                <button type="submit" id="submit-btn" class="w-full bg-charcoal text-white font-black text-xl py-5 rounded-sm hover:bg-orange border-4 border-charcoal shadow-brutal hover:translate-y-[2px] hover:shadow-brutal-sm transition-all flex justify-center items-center mt-6 uppercase tracking-wider">
+                    <span>Send Message &rarr;</span>
+                    <svg id="loading-spinner" class="hidden animate-spin ml-3 h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                </button>
+            </form>
+        </div>
+    </section>
+    <!-- Footer -->
+    <!-- Footer -->
+    <footer class="bg-white py-16 px-6 border-t-4 border-charcoal">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-12">
+            <div>
+                <a href="#" class="flex items-center gap-3 text-2xl font-heading font-black tracking-tight mb-6">
+                    <img src="liftveno.png" alt="Lift Veno" class="w-12 h-12 object-contain">
+                    Lift Veno
+                </a>
+                <p class="text-charcoal font-bold text-lg max-w-xs mb-2">
+                    Going somewhere?
+                </p>
+                <p class="text-orange font-bold text-lg ml-text">
+                    എങ്ങോട്ടാ ഈ പോക്ക്?
+                </p>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-8 sm:gap-20 text-base font-black uppercase tracking-wider">
+                <div class="flex flex-col gap-5">
+                    <a href="#survey" class="hover:text-orange hover:underline decoration-4 underline-offset-4">Take Survey</a>
+                    <a href="#how-it-works" class="hover:text-orange hover:underline decoration-4 underline-offset-4">How it Works</a>
+                </div>
+                <div class="flex flex-col gap-5">
+                    <a href="#safety" class="hover:text-orange hover:underline decoration-4 underline-offset-4">Safety</a>
+                    <a href="privacy.html" class="hover:text-orange hover:underline decoration-4 underline-offset-4">Privacy</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto mt-16 pt-8 border-t-4 border-charcoal flex justify-between items-center text-sm font-bold">
+            <p>&copy; 2026 Lift Veno</p>
+            <p class="ml-text text-base">ഇന്ത്യ</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Splash Screen Logic
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                splash.classList.add('opacity-0');
+                setTimeout(() => {
+                    splash.classList.add('hidden');
+                }, 600);
+            }, 1200);
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach(element => {
+            observer.observe(element);
+        });
+
+        // EmailJS Form Handling
+        emailjs.init("rOuUdwYgvCsZPlqIr"); 
+
+        const contactForm = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const spinner = document.getElementById('loading-spinner');
+        const formError = document.getElementById('form-error');
+        const formSuccess = document.getElementById('form-success');
+        const btnText = submitBtn.querySelector('span');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // UI Loading state
+                btnText.classList.add('hidden');
+                spinner.classList.remove('hidden');
+                submitBtn.disabled = true;
+                formError.classList.add('hidden');
+                formSuccess.classList.add('hidden');
+
+                try {
+                    // Send Email using EmailJS
+                    await emailjs.sendForm('service_jojgz1l', 'template_atpsl9r', contactForm);
+                    
+                    formSuccess.classList.remove('hidden');
+                    contactForm.reset();
+                } catch (error) {
+                    formError.classList.remove('hidden');
+                    formError.textContent = 'Failed to send message. Please try again or check console.';
+                    console.error('EmailJS Error:', error);
+                } finally {
+                    // Reset UI
+                    btnText.classList.remove('hidden');
+                    spinner.classList.add('hidden');
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+    </script>
+</body>
+</html>

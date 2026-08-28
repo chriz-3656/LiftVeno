@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Survey | Lift Veno</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: '#202124',
+                        orange: '#FF5A1F',
+                        offwhite: '#F7F5F2',
+                        white: '#FFFFFF',
+                        error: '#C83A3A',
+                        success: '#2F7D57'
+                    },
+                    fontFamily: {
+                        heading: ['Manrope', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        ml: ['"Anek Malayalam"', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'brutal': '6px 6px 0px 0px #202124',
+                        'brutal-orange': '6px 6px 0px 0px #FF5A1F',
+                        'brutal-sm': '3px 3px 0px 0px #202124',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F7F5F2;
+            color: #202124;
+            -webkit-font-smoothing: antialiased;
+            background-image: radial-gradient(#202124 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-color: #F7F5F2;
+        }
+        h1, h2, h3, .font-heading {
+            font-family: 'Manrope', sans-serif;
+        }
+        .ml-text {
+            font-family: 'Anek Malayalam', sans-serif;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white border-b-4 border-charcoal">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 text-2xl font-heading font-extrabold tracking-tight bg-charcoal text-white px-3 py-1 border-2 border-charcoal shadow-brutal-sm">
+                <img src="liftveno.png" alt="Lift Veno" class="w-8 h-8 object-contain">
+                LV
+            </a>
+            <a href="index.html" class="text-sm font-bold uppercase tracking-wider bg-orange text-white border-2 border-charcoal px-4 py-2 shadow-brutal-sm hover:translate-y-[2px] hover:shadow-none transition-all">&larr; Back to Home</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow py-16 px-6">
+        <div class="max-w-2xl mx-auto">
+            
+            <div class="mb-10 text-center">
+                <div class="inline-block bg-white border-4 border-charcoal px-6 py-2 shadow-brutal-orange mb-6 transform -rotate-2">
+                    <h1 class="text-3xl font-heading font-black">Lift Veno Travel Survey</h1>
+                </div>
+                <h2 class="text-2xl font-bold ml-text text-charcoal bg-white inline-block px-4 py-1 border-2 border-charcoal shadow-brutal-sm transform rotate-1">യാത്രകളെക്കുറിച്ച് സംസാരിക്കാം!</h2>
+                <p class="mt-6 text-lg font-bold bg-white p-4 border-4 border-charcoal rounded-sm shadow-brutal-sm text-left">
+                    We are researching real-world travel habits. Your feedback will directly shape how Lift Veno is built by Chriz. This takes less than 3 minutes.
+                </p>
+            </div>
+
+            <form id="survey-form" class="space-y-8 bg-white p-8 md:p-10 border-4 border-charcoal rounded-sm shadow-brutal">
+                
+                <!-- Q1 -->
+                <div>
+                    <label class="block text-lg font-black mb-3">1. How do you usually travel between cities/towns?</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <label class="flex items-center gap-3 p-3 border-4 border-charcoal bg-offwhite hover:bg-orange/10 cursor-pointer transition-colors shadow-brutal-sm">
+                            <input type="radio" name="mode" value="bus" class="w-5 h-5 text-orange focus:ring-orange accent-orange" required>
+                            <span class="font-bold">Bus</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 border-4 border-charcoal bg-offwhite hover:bg-orange/10 cursor-pointer transition-colors shadow-brutal-sm">
+                            <input type="radio" name="mode" value="train" class="w-5 h-5 text-orange focus:ring-orange accent-orange">
+                            <span class="font-bold">Train</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 border-4 border-charcoal bg-offwhite hover:bg-orange/10 cursor-pointer transition-colors shadow-brutal-sm">
+                            <input type="radio" name="mode" value="own_vehicle" class="w-5 h-5 text-orange focus:ring-orange accent-orange">
+                            <span class="font-bold">Own Vehicle</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 border-4 border-charcoal bg-offwhite hover:bg-orange/10 cursor-pointer transition-colors shadow-brutal-sm">
+                            <input type="radio" name="mode" value="cab" class="w-5 h-5 text-orange focus:ring-orange accent-orange">
+                            <span class="font-bold">Taxi / Cab</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="bg-yellow-50 p-6 border-4 border-charcoal shadow-brutal-sm">
+                    <label class="block text-lg font-black mb-3">2. If you drive a car/bike, how often do you have empty seats?</label>
+                    <select name="frequency" required class="w-full p-4 border-4 border-charcoal bg-white font-bold focus:outline-none focus:ring-2 focus:ring-orange appearance-none">
+                        <option value="" disabled selected>Select an option...</option>
+                        <option value="always">Always (സ്ഥിരമായി)</option>
+                        <option value="sometimes">Sometimes (ചിലപ്പോൾ)</option>
+                        <option value="rarely">Rarely (വളരെ അപൂർവ്വം)</option>
+                        <option value="na">I don't drive</option>
+                    </select>
+                </div>
+
+                <!-- Q3 -->
+                <div>
+                    <label class="block text-lg font-black mb-3">3. Would you be willing to share a ride with a verified person going the same way?</label>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-offwhite rounded-sm">
+                            <input type="radio" name="willingness" value="yes" class="w-5 h-5 text-orange accent-orange" required>
+                            <span class="font-bold text-lg">Yes, definitely <span class="ml-text text-secondary ml-2 text-sm">(തീർച്ചയായും)</span></span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-offwhite rounded-sm">
+                            <input type="radio" name="willingness" value="maybe" class="w-5 h-5 text-orange accent-orange">
+                            <span class="font-bold text-lg">Maybe, depends on trust & safety <span class="ml-text text-secondary ml-2 text-sm">(സുരക്ഷ ഉറപ്പാണെങ്കിൽ)</span></span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-offwhite rounded-sm">
+                            <input type="radio" name="willingness" value="no" class="w-5 h-5 text-orange accent-orange">
+                            <span class="font-bold text-lg">No, I prefer privacy <span class="ml-text text-secondary ml-2 text-sm">(ഇല്ല)</span></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div>
+                    <label class="block text-lg font-black mb-3">4. What is your biggest concern with shared travel?</label>
+                    <input type="text" name="concern" id="concern" required class="w-full border-4 border-charcoal bg-offwhite p-4 focus:outline-none focus:bg-white font-bold" placeholder="e.g. Safety, Timing, Cost, Comfort...">
+                </div>
+
+                <!-- Q5 -->
+                <div>
+                    <label class="block text-lg font-black mb-3">5. Optional: Any feedback for the builder (Chriz)?</label>
+                    <textarea name="feedback" rows="3" class="w-full border-4 border-charcoal bg-offwhite p-4 focus:outline-none focus:bg-white font-bold" placeholder="Thoughts on the Lift Veno concept..."></textarea>
+                </div>
+                
+                <div id="form-error" class="hidden text-white bg-error font-bold p-4 border-4 border-charcoal shadow-brutal-sm">Please fill in all required fields.</div>
+                <div id="form-success" class="hidden text-charcoal bg-green-400 font-bold p-6 border-4 border-charcoal shadow-brutal text-lg text-center ml-text">
+                    നന്ദി! Thank you for helping shape Lift Veno.<br>
+                    <a href="index.html" class="inline-block mt-4 bg-white px-4 py-2 border-2 border-charcoal text-sm uppercase">Return Home</a>
+                </div>
+
+                <button type="submit" id="submit-btn" class="w-full bg-orange text-white font-black text-2xl py-5 border-4 border-charcoal shadow-brutal hover:translate-y-[2px] hover:shadow-brutal-sm transition-all flex justify-center items-center uppercase tracking-wider">
+                    <span>Submit Survey &rarr;</span>
+                    <svg id="loading-spinner" class="hidden animate-spin ml-3 h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Interactive Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        emailjs.init("Y9kkP5XcVV-jSSLiL");
+
+        const surveyForm = document.getElementById('survey-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const spinner = document.getElementById('loading-spinner');
+        const formError = document.getElementById('form-error');
+        const formSuccess = document.getElementById('form-success');
+        const btnText = submitBtn.querySelector('span');
+
+        surveyForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            btnText.classList.add('hidden');
+            spinner.classList.remove('hidden');
+            submitBtn.disabled = true;
+            formError.classList.add('hidden');
+            formSuccess.classList.add('hidden');
+
+            try {
+                // Send Email using EmailJS
+                await emailjs.sendForm('service_d2wiq56', 'template_4j7jpxt', surveyForm);
+                
+                formSuccess.classList.remove('hidden');
+                submitBtn.classList.add('hidden'); // Hide button on success
+            } catch (error) {
+                formError.classList.remove('hidden');
+                formError.textContent = "Failed to submit survey. Please try again.";
+                console.error("EmailJS Error:", error);
+            } finally {
+                btnText.classList.remove('hidden');
+                spinner.classList.add('hidden');
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
