@@ -19,6 +19,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <!-- Google reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- Swiper CSS for Carousel -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <script>
         tailwind.config = {
             theme: {
@@ -361,6 +363,59 @@
         </div>
     </section>
 
+    <!-- App MVP Demo Section -->
+    <section id="app-demo" class="py-24 bg-charcoal text-white border-b-4 border-charcoal overflow-hidden relative">
+        <!-- Abstract BG Elements -->
+        <div class="absolute top-10 left-10 w-32 h-32 bg-orange/20 rounded-full blur-2xl"></div>
+        <div class="absolute bottom-10 right-10 w-48 h-48 bg-white/5 rounded-full blur-2xl"></div>
+        
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-4xl md:text-5xl font-heading font-black mb-4">Sneak Peek: MVP Demo</h2>
+                <h3 class="text-2xl text-orange ml-text font-bold mb-6 border-2 border-orange inline-block px-4 py-2 transform -rotate-1 bg-white">ആപ്പ് എങ്ങനെ ഇരിക്കും?</h3>
+                <p class="text-lg md:text-xl font-medium max-w-2xl mx-auto opacity-90">Take a look at the early concept screens for the Lift Veno app.</p>
+            </div>
+            
+            <!-- Swiper Carousel -->
+            <div class="swiper app-swiper fade-up pb-16">
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide cursor-pointer transition-transform hover:scale-105" onclick="openLightbox('app-demo/SPLASH_ONBOARDING.png')">
+                        <img src="app-demo/SPLASH_ONBOARDING.png" class="w-full h-auto border-4 border-white shadow-[6px_6px_0px_#FF5A1F] rounded-sm object-cover max-h-[600px] bg-white mx-auto" alt="Onboarding">
+                    </div>
+                    <div class="swiper-slide cursor-pointer transition-transform hover:scale-105" onclick="openLightbox('app-demo/DISCOVER_FEED.png')">
+                        <img src="app-demo/DISCOVER_FEED.png" class="w-full h-auto border-4 border-white shadow-[6px_6px_0px_#FF5A1F] rounded-sm object-cover max-h-[600px] bg-white mx-auto" alt="Discover Feed">
+                    </div>
+                    <div class="swiper-slide cursor-pointer transition-transform hover:scale-105" onclick="openLightbox('app-demo/SEARCH_JOURNEYS.png')">
+                        <img src="app-demo/SEARCH_JOURNEYS.png" class="w-full h-auto border-4 border-white shadow-[6px_6px_0px_#FF5A1F] rounded-sm object-cover max-h-[600px] bg-white mx-auto" alt="Search Journeys">
+                    </div>
+                    <div class="swiper-slide cursor-pointer transition-transform hover:scale-105" onclick="openLightbox('app-demo/PUBLISH_JOURNEY.png')">
+                        <img src="app-demo/PUBLISH_JOURNEY.png" class="w-full h-auto border-4 border-white shadow-[6px_6px_0px_#FF5A1F] rounded-sm object-cover max-h-[600px] bg-white mx-auto" alt="Publish Journey">
+                    </div>
+                    <div class="swiper-slide cursor-pointer transition-transform hover:scale-105" onclick="openLightbox('app-demo/JOURNEY_DETAILS.png')">
+                        <img src="app-demo/JOURNEY_DETAILS.png" class="w-full h-auto border-4 border-white shadow-[6px_6px_0px_#FF5A1F] rounded-sm object-cover max-h-[600px] bg-white mx-auto" alt="Journey Details">
+                    </div>
+                    <div class="swiper-slide cursor-pointer transition-transform hover:scale-105" onclick="openLightbox('app-demo/ACTIVE_TRIP.png')">
+                        <img src="app-demo/ACTIVE_TRIP.png" class="w-full h-auto border-4 border-white shadow-[6px_6px_0px_#FF5A1F] rounded-sm object-cover max-h-[600px] bg-white mx-auto" alt="Active Trip">
+                    </div>
+                    <div class="swiper-slide cursor-pointer transition-transform hover:scale-105" onclick="openLightbox('app-demo/KYC_VERIFICATION.png')">
+                        <img src="app-demo/KYC_VERIFICATION.png" class="w-full h-auto border-4 border-white shadow-[6px_6px_0px_#FF5A1F] rounded-sm object-cover max-h-[600px] bg-white mx-auto" alt="KYC Verification">
+                    </div>
+                    <div class="swiper-slide cursor-pointer transition-transform hover:scale-105" onclick="openLightbox('app-demo/PROFILE_WALLET.png')">
+                        <img src="app-demo/PROFILE_WALLET.png" class="w-full h-auto border-4 border-white shadow-[6px_6px_0px_#FF5A1F] rounded-sm object-cover max-h-[600px] bg-white mx-auto" alt="Profile Wallet">
+                    </div>
+                    <div class="swiper-slide cursor-pointer transition-transform hover:scale-105" onclick="openLightbox('app-demo/SETTINGS.png')">
+                        <img src="app-demo/SETTINGS.png" class="w-full h-auto border-4 border-white shadow-[6px_6px_0px_#FF5A1F] rounded-sm object-cover max-h-[600px] bg-white mx-auto" alt="Settings">
+                    </div>
+                </div>
+                <!-- Pagination -->
+                <div class="swiper-pagination mt-8"></div>
+            </div>
+            
+            <p class="text-center text-sm uppercase tracking-widest font-bold opacity-50">Click any screen to zoom in</p>
+        </div>
+    </section>
+
     <!-- Supported Transport Modes (Custom thick icons) -->
     <section class="py-24 bg-white border-b-2 border-charcoal px-6 overflow-hidden relative">
         <!-- Kerala Winding Road Background -->
@@ -589,8 +644,58 @@
         </div>
     </footer>
 
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-charcoal/95 hidden flex-col items-center justify-center p-4 backdrop-blur-sm transition-opacity duration-300 opacity-0" onclick="if(event.target === this) closeLightbox()">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white font-black text-4xl hover:text-orange transition-colors">&times;</button>
+        <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] object-contain border-4 border-white shadow-[8px_8px_0px_#FF5A1F] rounded-sm">
+        <p class="text-white mt-4 text-sm font-bold tracking-widest uppercase cursor-pointer hover:text-orange" onclick="closeLightbox()">Click anywhere to close</p>
+    </div>
+
     <!-- Interactive Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script>
+        // Swiper & Lightbox Logic
+        const swiper = new Swiper('.app-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+            }
+        });
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        
+        function openLightbox(imgSrc) {
+            lightboxImg.src = imgSrc;
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            setTimeout(() => lightbox.classList.remove('opacity-0'), 10);
+            document.body.style.overflow = 'hidden';
+            swiper.autoplay.stop();
+        }
+
+        function closeLightbox() {
+            lightbox.classList.add('opacity-0');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+                lightboxImg.src = '';
+            }, 300);
+            document.body.style.overflow = '';
+            swiper.autoplay.start();
+        }
+
         // Splash Screen Logic
         window.addEventListener('load', () => {
             setTimeout(() => {
